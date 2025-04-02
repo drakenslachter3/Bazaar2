@@ -11,7 +11,6 @@ class RentalCalendarController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
     }
     
     // Voor huurders: bekijk je gehuurde items

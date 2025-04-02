@@ -14,7 +14,6 @@ class AdvertisementController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['index', 'show']);
     }
     
     public function index(Request $request)
@@ -52,36 +51,36 @@ class AdvertisementController extends Controller
     }
     
     public function store(Request $request)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'price' => 'required|numeric|min:0',
-            'type' => 'required|in:sale,rent',
-            'expiry_date' => 'nullable|date|after:today',
-        ]);
-        
-        $user = Auth::user();
-        
-        $advertisement = new Advertisement([
-            'title' => $request->title,
-            'description' => $request->description,
-            'price' => $request->price,
-            'type' => $request->type,
-            'user_id' => $user->id,
-            'business_id' => $user->business->id ?? null,
-            'active' => true,
-            'expiry_date' => $request->expiry_date,
-        ]);
-        
-        $advertisement->save();
-        
-        // QR-code genereren
-        $this->generateQrCode($advertisement);
-        
-        return redirect()->route('advertisements.show', $advertisement)
-            ->with('success', 'Advertentie succesvol aangemaakt.');
-    }
+{
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'price' => 'required|numeric|min:0',
+        'type' => 'required|in:sale,rent',
+        'expiry_date' => 'nullable|date|after:today',
+    ]);
+    
+    $user = Auth::user();
+    
+    $advertisement = new Advertisement([
+        'title' => $request->title,
+        'description' => $request->description,
+        'price' => $request->price,
+        'type' => $request->type,
+        'user_id' => $user->id,
+        'business_id' => $user->business->id ?? null,
+        'active' => true,
+        'expiry_date' => $request->expiry_date,
+    ]);
+    
+    $advertisement->save();
+    
+    // Verwijder de QR-code generatie functie
+    // $this->generateQrCode($advertisement);
+    
+    return redirect()->route('advertisements.show', $advertisement)
+        ->with('success', 'Advertentie succesvol aangemaakt.');
+}
     
     protected function generateQrCode($advertisement)
     {
@@ -101,14 +100,14 @@ class AdvertisementController extends Controller
     
     public function edit(Advertisement $advertisement)
     {
-        $this->authorize('update', $advertisement);
+        // $this->authorize('update', $advertisement);
         
         return view('advertisements.edit', compact('advertisement'));
     }
     
     public function update(Request $request, Advertisement $advertisement)
     {
-        $this->authorize('update', $advertisement);
+        // $this->authorize('update', $advertisement);
         
         $request->validate([
             'title' => 'required|string|max:255',
