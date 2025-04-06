@@ -84,23 +84,6 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="locale" class="col-md-4 col-form-label text-md-end">{{ __('Taal') }}</label>
-
-                            <div class="col-md-6">
-                                <select id="locale" class="form-control @error('locale') is-invalid @enderror" name="locale">
-                                    <option value="nl" {{ $user->locale == 'nl' ? 'selected' : '' }}>Nederlands</option>
-                                    <option value="en" {{ $user->locale == 'en' ? 'selected' : '' }}>English</option>
-                                </select>
-
-                                @error('locale')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

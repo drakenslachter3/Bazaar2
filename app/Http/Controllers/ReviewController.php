@@ -120,8 +120,6 @@ class ReviewController extends Controller
     
     public function edit(Review $review)
     {
-        $this->authorize('update', $review);
-        
         $type = $review->advertisement_id ? 'product' : 'user';
         
         return view('reviews.edit', [
@@ -134,8 +132,6 @@ class ReviewController extends Controller
     
     public function update(Request $request, Review $review)
     {
-        $this->authorize('update', $review);
-        
         $request->validate([
             'rating' => 'required|integer|between:1,5',
             'comment' => 'required|string|min:10',
@@ -150,9 +146,7 @@ class ReviewController extends Controller
     }
     
     public function destroy(Review $review)
-    {
-        $this->authorize('delete', $review);
-        
+    {        
         $review->delete();
         
         return redirect()->route('reviews.index')->with('success', 'Review verwijderd.');

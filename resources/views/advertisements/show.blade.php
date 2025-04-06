@@ -109,12 +109,6 @@
                             <a href="mailto:{{ $advertisement->user->email }}" class="btn btn-outline-primary w-100 mb-2">
                                 <i class="fas fa-envelope"></i> {{ __('Contact Advertiser') }}
                             </a>
-                            @auth
-                                <a href="{{ route('reviews.user.create', $advertisement->user) }}"
-                                    class="btn btn-outline-secondary w-100">
-                                    <i class="fas fa-star"></i> {{ __('Review Advertiser') }}
-                                </a>
-                            @endauth
                         </div>
                     </div>
                 </div>

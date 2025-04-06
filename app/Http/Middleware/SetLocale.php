@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Middleware;
 
 use Closure;
@@ -12,6 +11,9 @@ class SetLocale
     {
         if (session()->has('locale')) {
             App::setLocale(session('locale'));
+        } elseif (auth()->check() && auth()->user()->locale) {
+            App::setLocale(auth()->user()->locale);
+            session(['locale' => auth()->user()->locale]);
         }
         
         return $next($request);
