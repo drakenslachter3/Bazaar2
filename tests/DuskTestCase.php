@@ -9,9 +9,6 @@ use PHPUnit\Framework\Attributes\BeforeClass;
 
 abstract class DuskTestCase extends BaseTestCase
 {
-    /**
-     * Prepare for Dusk test execution.
-     */
     #[BeforeClass]
     public static function prepare(): void
     {
@@ -20,9 +17,7 @@ abstract class DuskTestCase extends BaseTestCase
         }
     }
 
-    /**
-     * Create the RemoteWebDriver instance.
-     */
+
     protected function driver()
     {
         $options = (new ChromeOptions)->addArguments([
@@ -33,7 +28,6 @@ abstract class DuskTestCase extends BaseTestCase
             '--disable-dev-shm-usage',
         ]);
 
-        // Create capabilities directly as an array
         $capabilities = new DesiredCapabilities([
             'browserName'             => 'chrome',
             ChromeOptions::CAPABILITY => $options->toArray(),
